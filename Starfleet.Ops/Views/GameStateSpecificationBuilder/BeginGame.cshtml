@@ -1,0 +1,22 @@
+﻿@using Starfleet.Ops.Domain.GameState
+@model Starfleet.Ops.Domain.GameState.GameState
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<h2>title</h2>
+
+
+<script id="gs-pending" type="text/gamestate">
+    @Json.Serialize(Model)
+</script>
+
+@section Scripts
+{
+    <script>
+        localStorage.setItem("gs", $("#gs-pending").html());
+        document.location.href = '@Url.Action("Index", "Game")';
+    </script>
+}

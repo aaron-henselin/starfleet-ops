@@ -1,0 +1,11 @@
+﻿@model System.Collections.Generic.List<Starfleet.Ops.ViewComponents.ComponentStatusViewModel>
+    
+<div class="component-list row">
+    @foreach (var vm in Model)
+    {
+        <div class="component col-md-3">
+        <h5>@vm.ComponentDisplayName</h5>
+        @await Component.InvokeAsync("HealthBar", new { max = vm.MaxHealth, current = vm.RemainingHealth })
+        </div>
+    }
+</div>

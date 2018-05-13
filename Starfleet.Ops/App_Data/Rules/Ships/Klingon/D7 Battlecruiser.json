@@ -1,0 +1,23 @@
+﻿{
+  "Code": "d7battlecruiser",
+  "Faction": "klingon",
+  "Name": "D7 Battlecruiser",
+  "Components": {
+    "Phaser": "3",
+    "F Hull": "4",
+    "A Hull": "15",
+    "Impulse": "1",
+    "Lab": "2",
+    "Battery": "5" 
+
+  }
+}
+
+
+    //public class ShipSpecification
+    //{
+    //    public string Code { get; set; }
+    //    public string Faction { get; set; }
+    //    public string Name { get; set; }
+    //    public Dictionary<string,int> Components { get; set; } = new Dictionary<string, int>();
+    //}

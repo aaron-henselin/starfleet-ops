@@ -1,0 +1,6 @@
+﻿{
+  "Weapons": ["Phaser","Drone","Torp"],
+  "Hulls": [ "A Hull", "F Hull" ],
+  "Engines": [ "Left W En", "Right W En","Impulse","APR","Battery" ],
+  "Specials": ["Lab","Shuttle","Cargo","Emer Bridge","Aux Control","Scanner","Trans"] 
+}

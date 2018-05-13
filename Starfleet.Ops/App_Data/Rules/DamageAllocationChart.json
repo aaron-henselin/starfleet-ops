@@ -1,0 +1,13 @@
+﻿{
+  "2": [ "_Bridge", "_Flag Bridge", "_Sensor", "_Damage Control", "_A Hull","Left W En" ],
+  "3": ["_Drone","_Phaser"],
+  "4": ["Phaser","Trans"],
+  "5": ["Right W En"],
+  "6": ["F Hull"],
+  "7": ["Cargo"],
+  "8": ["A Hull"],
+  "9": ["Left W En"],
+  "10": ["Phaser"],
+  "11": ["Torp"],
+  "12": ["_Aux Control","_Emer Bridge","_Scanner","_Probe","_F Hull","Righ W En","Trans"]
+}

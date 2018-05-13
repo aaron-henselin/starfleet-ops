@@ -1,0 +1,121 @@
+﻿
+@using Starfleet.Ops.Domain.Rules
+@using Starfleet.Ops.Utility
+@model Starfleet.Ops.Controllers.GameViewModel
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+<style>
+    .health-box {
+        width: 25px;
+        height: 25px;
+        border: 1px solid #000;
+        background-color: green;
+        display: inline-block;
+        margin: 5px;
+    }
+
+        .health-box.damaged {
+            background-color: red;
+        }
+</style>
+<h2>title</h2>
+
+
+@section Scripts
+    {
+
+    @if (Model.IsGameResuming)
+    {
+        <script>
+            var gsId = '@Html.IdFor(x => x.BrowserGameState)';
+            $("#" + gsId).val(localStorage.getItem('gs'));
+            $("form").submit();
+        </script>
+    }
+    else
+    {
+        <script>
+            var gsId = '@Html.IdFor(x => x.ServerGameState)';
+            localStorage.setItem('gs', $("#" + gsId).val());
+
+            var gs2Id = '@Html.IdFor(x => x.BrowserGameState)';
+            $("#" + gs2Id).val(localStorage.getItem('gs'));
+
+            $("[data-pawn-input-role='take-damage']").click(function () {
+
+                var $wrapper = $(this).closest("[data-pawn-id]");
+                var damageAmount = $wrapper.find("[data-pawn-input-role='damage-amount']").val();
+                var pawnId = $wrapper.data("pawn-id");
+
+
+                var newDamageId = '@Html.IdFor(x => x.NewDamage)';
+                var newDamageTargetId = '@Html.IdFor(x => x.NewDamageTarget)';
+                $("#" + newDamageTargetId).val(pawnId);
+                $("#" + newDamageId).val(damageAmount);
+
+                $("form").submit();
+            });
+
+        </script>
+    }
+
+}
+
+@if (Model.IsGameResuming)
+{
+    using (Html.BeginForm("ResumeGame", "Game"))
+    {
+        @Html.HiddenFor(x => x.BrowserGameState)
+    }
+
+    return;
+}
+
+@using (Html.BeginForm("Action", "Game"))
+{
+    @Html.HiddenFor(x => x.ServerGameState)
+    @Html.HiddenFor(x => x.BrowserGameState)
+
+    @Html.HiddenFor(x => x.NewDamage)
+    @Html.HiddenFor(x => x.NewDamageTarget)
+
+    foreach (var pawn in Model.GameState.Pawns)
+    {
+
+        var spec = GameRules.GetShipByCode(pawn.SpecificationCode);
+
+        <div data-pawn-id="@pawn.Id">
+            <h3>
+                @spec.Name
+            </h3>
+            <div class="subsystem-list">
+                <h4>Weapons</h4>
+                @await Component.InvokeAsync("SubsystemStatus", new { pawn, subsystem = KnownComponentTypes.Weapon })
+            </div>
+            <div class="engines">
+                <h4>Engines</h4>
+                @await Component.InvokeAsync("SubsystemStatus", new { pawn, subsystem = KnownComponentTypes.Engines })
+            </div>
+            <div class="special">
+                <h4>Special</h4>
+                @await Component.InvokeAsync("SubsystemStatus", new { pawn, subsystem = KnownComponentTypes.Special })
+            </div>
+            <div class="hull">
+                <h4>Hull</h4>
+                @await Component.InvokeAsync("SubsystemStatus", new { pawn, subsystem = KnownComponentTypes.Hull })
+            </div>
+
+            @if (pawn.ExcessDamage > 0)
+            {
+                <span>EXCESS DAMAGE: @pawn.ExcessDamage</span>
+            }
+
+            <input data-pawn-input-role="damage-amount" type="text" />
+            <input data-pawn-input-role="take-damage" type="button" value="Take Damage to Internals" />
+        </div>
+    }
+}
+
