@@ -1,13 +1,14 @@
-﻿{
-  "2": [ "_Bridge", "_Flag Bridge", "_Sensor", "_Damage Control", "_A Hull","Left W En" ],
-  "3": ["_Drone","_Phaser"],
-  "4": ["Phaser","Trans"],
-  "5": ["Right W En"],
-  "6": ["F Hull"],
-  "7": ["Cargo"],
-  "8": ["A Hull"],
-  "9": ["Left W En"],
-  "10": ["Phaser"],
-  "11": ["Torp"],
-  "12": ["_Aux Control","_Emer Bridge","_Scanner","_Probe","_F Hull","Righ W En","Trans"]
+﻿{        //A              B                C             D                   E               F               G                  H                    I                  J              K                   L                    M
+  "2": [ "_Bridge"       ,"_Flag Bridge"  ,"_Sensor"    ,"_Damage Control"  ,"_R Hull"      ,"Left W En"     ,"Trans"          ,"Tractor"           ,"Shuttle"         ,"Lab"         ,"F Hull"           ,"Right W En"        ,"Excess Damage"],
+  "3": [ "_Drone"        ,"_Phaser"       ,"Impulse"    ,"Left W En"        ,"Right W En"   ,"R Hull"        ,"Shuttle"        ,"_Damage Control"   ,"Center W En"     ,"Lab"         ,"Battery"          ,"Phaser"            ,"Excess Damage"],
+  "4": [ "_Phaser"       ,"_Trans"        ,"Right W En" ,"Impulse"          ,"F Hull"       ,"R Hull"        ,"Left W En"      ,"AWR"               ,"Lab"             ,"Trans"       ,"Probe"            ,"Center W En"       ,"Excess Damage"],
+  "5": [ "_Right W En"   ,"R Hull"        ,"Cargo"      ,"Battery"          ,"Shuttle"      ,"_Torp"         ,"Left W En"      ,"Impulse"           ,"Right W En"      ,"Tractor"     ,"Probe"            ,"*Weapon"           ,"Excess Damage"],
+  "6": [ "F Hull"        ,"Impulse"       ,"Lab"        ,"Left W En"        ,"_Sensor"      ,"Tractor"       ,"Shuttle"        ,"Right W En"        ,"Phaser"          ,"Trans"       ,"Battery"          ,"*Weapon"           ,"Excess Damage"],
+  "7": [ "Cargo"         ,"F Hull"        ,"Battery"    ,"Center W En"      ,"Shuttle"      ,"AWR"           ,"Lab"            ,"Phaser"            ,"^W En"           ,"Probe"       ,"R Hull"           ,"*Weapon"           ,"Excess Damage"],
+  "8": [ "R Hull"        ,"AWR"           ,"Shuttle"    ,"Right W En"       ,"_Scanner"     ,"Tractor"       ,"Lab"            ,"Left W En"         ,"Phaser"          ,"Trans"       ,"Battery"          ,"*Weapon"           ,"Excess Damage"],
+  "9": [ "_Left W En"    ,"F Hull"        ,"Cargo"      ,"Battery"          ,"Lab"          ,"_Drone"        ,"Right W En"     ,"Impulse"           ,"Left W En"       ,"Tractor"     ,"Probe"            ,"*Weapon"           ,"Excess Damage"],
+  "10": [ "_Phaser"      ,"_Tractor"      ,"Left W En"  ,"Impulse"          ,"R Hull"       ,"F Hull"        ,"Right W En"     ,"AWR"               ,"Lab"             ,"Trans"       ,"Probe"            ,"Center W En"       ,"Excess Damage"],
+  "11": [ "_Torp"        ,"_Phaser"       ,"Impulse"    ,"Right W En"       ,"Left W En"    ,"F Hull"        ,"Tractor"        ,"_Damage Control"   ,"Center W En"     ,"Lab"         ,"Battery"          ,"Phaser"            ,"Excess Damage"],
+  "12": [ "_Aux Control" ,"_Emer Bridge"  ,"_Scanner"   ,"_Probe"           ,"_F Hull"      ,"Right W En"    ,"Trans"          ,"Shuttle"           ,"Tractor"         ,"Lab"         ,"R Hull"           ,"Left W En"         ,"Excess Damage"]
 }
+

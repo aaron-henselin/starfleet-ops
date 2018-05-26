@@ -46,6 +46,5 @@ namespace Starfleet.Ops.Domain.GameState
         public string SpecificationCode { get; set; }
 
         public Dictionary<string, int> ComponentsRemaining { get; set; } = new Dictionary<string, int>();
-        public int ExcessDamage { get; set; }
     }
 }

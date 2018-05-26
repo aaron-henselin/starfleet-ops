@@ -82,6 +82,11 @@
     @Html.HiddenFor(x => x.NewDamage)
     @Html.HiddenFor(x => x.NewDamageTarget)
 
+
+    <pre style="height: 200px;">
+@Html.Raw(string.Join(Environment.NewLine,Model.BattleLog))
+</pre>
+
     foreach (var pawn in Model.GameState.Pawns)
     {
 
@@ -107,11 +112,6 @@
                 <h4>Hull</h4>
                 @await Component.InvokeAsync("SubsystemStatus", new { pawn, subsystem = KnownComponentTypes.Hull })
             </div>
-
-            @if (pawn.ExcessDamage > 0)
-            {
-                <span>EXCESS DAMAGE: @pawn.ExcessDamage</span>
-            }
 
             <input data-pawn-input-role="damage-amount" type="text" />
             <input data-pawn-input-role="take-damage" type="button" value="Take Damage to Internals" />

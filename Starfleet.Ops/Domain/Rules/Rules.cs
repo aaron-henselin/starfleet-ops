@@ -15,8 +15,7 @@ namespace Starfleet.Ops.Domain.Rules
 
         public static DamageAllocationTrack GetDamageAllocationTrack(int trackNumber)
         {
-            var allComponents = GetComponents().ToList();
-            
+
             if (_damageAllocationChart == null)
             {
                 var file =
@@ -39,11 +38,15 @@ namespace Starfleet.Ops.Domain.Rules
                         if (isAny)
                             code = trackUnitCode.Substring(1);
 
+                        var isEndsWith = trackUnitCode.StartsWith("^");
+                        if (isEndsWith)
+                            code = trackUnitCode.Substring(1);
+
                         if (isAny)
                         {
                             foreach (var cmp in _components)
                             {
-                                if (cmp.ComponentType == trackUnitCode)
+                                if (cmp.ComponentType == code)
                                 {
                                     var unit = new DamageAllocationTrackUnit
                                     {
@@ -54,17 +57,39 @@ namespace Starfleet.Ops.Domain.Rules
                                     track.Units.Add(unit);
                                 }
                             }
+
+                            continue;
                         }
-                        else
+
+                        if (isEndsWith)
                         {
-                            var unit = new DamageAllocationTrackUnit
+
+                            foreach (var cmp in _components)
+                            {
+                                if (cmp.Code.EndsWith(code))
+                                {
+                                    var unit = new DamageAllocationTrackUnit
+                                    {
+                                        Id = $"{kvp.Key}-{code}",
+                                        Code = code,
+                                        OncePerVolley = oncePerVolley,
+                                    };
+                                    track.Units.Add(unit);
+                                }
+                            }
+
+                            continue;
+                        }
+
+                        
+                            var unit2 = new DamageAllocationTrackUnit
                             {
                                 Id = $"{kvp.Key}-{code}",
                                 Code = code,
                                 OncePerVolley = oncePerVolley,
                             };
-                            track.Units.Add(unit);
-                        }
+                            track.Units.Add(unit2);
+                        
 
                     }
                 }

@@ -1,6 +1,6 @@
 ﻿{
   "Weapons": ["Phaser","Drone","Torp"],
-  "Hulls": [ "A Hull", "F Hull" ],
-  "Engines": [ "Left W En", "Right W En","Impulse","APR","Battery" ],
-  "Specials": ["Lab","Shuttle","Cargo","Emer Bridge","Aux Control","Scanner","Trans"] 
+  "Hulls": [ "R Hull", "F Hull","C Hull" ],
+  "Engines": [ "Left W En", "Right W En", "Center W En", "Impulse", "AWR", "Battery" ],
+  "Specials": ["Sensor","Lab","Shuttle","Cargo","Bridge","Emer Bridge","Aux Control","Scanner","Trans","Flag Bridge","Tractor","Probe","Damage Control","Excess Damage"] 
 }
