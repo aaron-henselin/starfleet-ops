@@ -4,7 +4,24 @@
     ViewBag.Title = "title";
     Layout = "_Layout";
 }
+<style>
+    .main-menu {
+        font-family: monospace;
+    }
+</style>
 
-<h2>title</h2>
+<div class="main-menu">
+<h1>Starfleet Ops</h1>
+<h5>Main Menu</h5>
 
-<a href="@Url.Action("Index","GameStateSpecificationBuilder")">New Game</a>
+    <ul>
+        <li>
+            <a href="@Url.Action("Index", "Game")">Continue Game</a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "GameStateSpecificationBuilder")">New Game 
+                <span>- This will erase your previous game!</span>
+                </a>
+        </li>
+    </ul>
+</div>

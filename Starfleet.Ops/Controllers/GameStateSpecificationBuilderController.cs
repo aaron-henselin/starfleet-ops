@@ -16,9 +16,15 @@ namespace Starfleet.Ops.Controllers
     public class GameStateSpecificationViewModel
     {
         public List<SelectListItem> AllShips { get; set; } = new List<SelectListItem>();
-        public List<string> SelectedShips { get; set; } = new List<string>();
+        public List<ShipSelection> SelectedShips { get; set; } = new List<ShipSelection>();
     }
-    
+
+    public class ShipSelection
+    {
+        public string Code { get; set; }
+        public string Name { get; set; }
+    }
+
 
     public class GameStateSpecificationBuilderController : Controller
     {
@@ -45,7 +51,7 @@ namespace Starfleet.Ops.Controllers
             var vm = new GameStateSpecificationViewModel
             {
               AllShips  = CreateShipOptions().ToList(),
-              SelectedShips = new List<string>()
+              SelectedShips = new List<ShipSelection>()
             };
            
             RemoveEmptyEntriesAndEnsureLastOptionEmpty(vm);
@@ -55,9 +61,9 @@ namespace Starfleet.Ops.Controllers
 
         private static void RemoveEmptyEntriesAndEnsureLastOptionEmpty(GameStateSpecificationViewModel vm)
         {
-            vm.SelectedShips.RemoveAll(string.IsNullOrWhiteSpace);
-            if (!vm.SelectedShips.Any() || !string.IsNullOrWhiteSpace(vm.SelectedShips.Last()))
-                vm.SelectedShips.Add(string.Empty);
+            vm.SelectedShips.RemoveAll(x => string.IsNullOrWhiteSpace(x.Code));
+            if (!vm.SelectedShips.Any() || !string.IsNullOrWhiteSpace(vm.SelectedShips.Last().Code))
+                vm.SelectedShips.Add(new ShipSelection());
         }
 
         [HttpPost]
@@ -72,13 +78,14 @@ namespace Starfleet.Ops.Controllers
         [HttpPost]
         public IActionResult BeginGame(GameStateSpecificationViewModel vm)
         {
-            var shipsToCreate = vm.SelectedShips.Where(x => !string.IsNullOrWhiteSpace(x));
+            var shipsToCreate = vm.SelectedShips.Where(x => !string.IsNullOrWhiteSpace(x.Code));
 
             var gs = new GameState();
             foreach (var shipToCreate in shipsToCreate)
             {
-                var spec = GameRules.GetShipByCode(shipToCreate);
+                var spec = GameRules.GetShipByCode(shipToCreate.Code);
                 var pawn = Pawn.FromSpecification(spec);
+                pawn.Name = shipToCreate.Name;
                 gs.Pawns.Add(pawn);
             }
             

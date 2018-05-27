@@ -117,14 +117,15 @@ namespace Starfleet.Ops.Controllers
 
 
             //vm.BattleLog = new List<string>();
-
+            pawnToAffect.BattleLog.Add($"== Simulating {vm.NumRolls} Internals ==");
             var sim =  new MultiRoundDamageAllocationSimulator();
             for (int i = 0; i < internalRoles; i++)
             {
                 var result = sim.TakeDamage(pawnToAffect);
                 pawnToAffect.BattleLog.Add(result.TrackNumber + " - " + result.AffectedUnitCode);
             }
-            
+
+
             this.ViewBag.PostActionGameState = JsonConvert.SerializeObject(vm.GameState);
 
             return PartialView("_Pawn",pawnToAffect);

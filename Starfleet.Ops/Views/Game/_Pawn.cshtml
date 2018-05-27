@@ -3,39 +3,49 @@
 @using Starfleet.Ops.Utility
 @model Starfleet.Ops.Domain.GameState.Pawn
 
-@{ var spec = GameRules.GetShipByCode(Model.SpecificationCode); };
+
 
 @using (Html.BeginForm("Action", "Game"))
 {
-    <div data-pawn-id="@Model.Id">
-        <h3>
-            @spec.Name
-        </h3>
-        <div class="subsystem-list">
-            <h4>Weapons</h4>
-            @await Component.InvokeAsync("SubsystemStatus", new {pawn = Model, subsystem = KnownComponentTypes.Weapon})
-        </div>
-        <div class="engines">
-            <h4>Engines</h4>
-            @await Component.InvokeAsync("SubsystemStatus", new {pawn = Model, subsystem = KnownComponentTypes.Engines})
-        </div>
-        <div class="special">
-            <h4>Special</h4>
-            @await Component.InvokeAsync("SubsystemStatus", new {pawn = Model, subsystem = KnownComponentTypes.Special})
-        </div>
-        <div class="hull">
-            <h4>Hull</h4>
-            @await Component.InvokeAsync("SubsystemStatus", new {pawn = Model, subsystem = KnownComponentTypes.Hull})
-        </div>
+<div class="pawn-status-panel" data-pawn-id="@Model.Id">
 
-        @Html.Partial("_BattleAction", new BattleAction {PawnId = Model.Id})
-
-        <h4>Battle Log</h4>
-        <pre style="height: 150px;">
-         @Html.Raw(string.Join(Environment.NewLine, Model.BattleLog))
-    </pre>
-
+    <div class="subsystem-list">
+        <h4>Weapons</h4>
+        @await Component.InvokeAsync("SubsystemStatus", new { pawn = Model, subsystem = KnownComponentTypes.Weapon })
     </div>
+    <div class="engines">
+        <h4>Engines</h4>
+        @await Component.InvokeAsync("SubsystemStatus", new { pawn = Model, subsystem = KnownComponentTypes.Engines })
+    </div>
+    <div class="special">
+        <h4>Special</h4>
+        @await Component.InvokeAsync("SubsystemStatus", new { pawn = Model, subsystem = KnownComponentTypes.Special })
+    </div>
+    <div class="hull">
+        <h4>Hull</h4>
+        @await Component.InvokeAsync("SubsystemStatus", new { pawn = Model, subsystem = KnownComponentTypes.Hull })
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <h4>Battle</h4>
+            <div>
+                @Html.Partial("_BattleAction", new BattleAction { PawnId = Model.Id })
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h4>Log</h4>
+            <pre style="height: 150px;">
+                 @Html.Raw(string.Join(Environment.NewLine, Model.BattleLog))
+            </pre>
+        </div>
+    </div>
+
+    
+
+
+
+</div>
 }
 
 @if (ViewBag.PostActionGameState != null)

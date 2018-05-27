@@ -13,7 +13,13 @@
     for (int i = 0; i < Model.SelectedShips.Count; i++)
     {
         <div class="row">
-            @Html.DropDownListFor(x => Model.SelectedShips[i], Model.AllShips)
+            <div class="col-md-6">
+                @Html.DropDownListFor(x => Model.SelectedShips[i].Code, Model.AllShips)
+            </div>
+            <div class="col-md-6">
+                @Html.TextBoxFor(x => x.SelectedShips[i].Name)
+            </div>
+           
         </div>
     }
     <input id="refreshButton" type="submit" style="display: none;"/>

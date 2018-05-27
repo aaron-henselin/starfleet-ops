@@ -21,3 +21,10 @@ $(document).on("click",
         });
 
     });
+
+
+$(document).ready(function () {
+    $("#panelbar").kendoPanelBar({
+        expandMode: "single"
+    });
+});
