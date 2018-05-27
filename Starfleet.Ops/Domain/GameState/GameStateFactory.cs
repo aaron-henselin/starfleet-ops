@@ -46,5 +46,7 @@ namespace Starfleet.Ops.Domain.GameState
         public string SpecificationCode { get; set; }
 
         public Dictionary<string, int> ComponentsRemaining { get; set; } = new Dictionary<string, int>();
+
+        public List<string> BattleLog { get; set; } = new List<string>();
     }
 }

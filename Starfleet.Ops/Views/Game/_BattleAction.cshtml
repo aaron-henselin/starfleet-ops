@@ -1,0 +1,11 @@
+﻿@model Starfleet.Ops.Controllers.BattleAction
+@{
+    Layout = null;
+}
+
+
+@Html.HiddenFor(x=> x.BrowserGameState)
+@Html.HiddenFor(x => x.PawnId)
+@Html.TextBoxFor(x => x.NumRolls)
+
+<input data-pawn-input-role="take-damage" type="button" value="Take Damage to Internals"/>

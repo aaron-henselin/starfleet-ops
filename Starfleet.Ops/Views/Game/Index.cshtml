@@ -25,7 +25,7 @@
 
 
 @section Scripts
-    {
+{
 
     @if (Model.IsGameResuming)
     {
@@ -37,29 +37,16 @@
     }
     else
     {
-        <script>
+        @*<script>
             var gsId = '@Html.IdFor(x => x.ServerGameState)';
             localStorage.setItem('gs', $("#" + gsId).val());
 
             var gs2Id = '@Html.IdFor(x => x.BrowserGameState)';
             $("#" + gs2Id).val(localStorage.getItem('gs'));
 
-            $("[data-pawn-input-role='take-damage']").click(function () {
-
-                var $wrapper = $(this).closest("[data-pawn-id]");
-                var damageAmount = $wrapper.find("[data-pawn-input-role='damage-amount']").val();
-                var pawnId = $wrapper.data("pawn-id");
 
 
-                var newDamageId = '@Html.IdFor(x => x.NewDamage)';
-                var newDamageTargetId = '@Html.IdFor(x => x.NewDamageTarget)';
-                $("#" + newDamageTargetId).val(pawnId);
-                $("#" + newDamageId).val(damageAmount);
-
-                $("form").submit();
-            });
-
-        </script>
+        </script>*@
     }
 
 }
@@ -74,48 +61,20 @@
     return;
 }
 
-@using (Html.BeginForm("Action", "Game"))
+
+
+@*@Html.HiddenFor(x => x.ServerGameState)
+@Html.HiddenFor(x => x.BrowserGameState)*@
+
+
+@foreach (var pawn in Model.GameState.Pawns)
 {
-    @Html.HiddenFor(x => x.ServerGameState)
-    @Html.HiddenFor(x => x.BrowserGameState)
+    <div data-role="async-container">
 
-    @Html.HiddenFor(x => x.NewDamage)
-    @Html.HiddenFor(x => x.NewDamageTarget)
+            @Html.Partial("_Pawn", pawn)
 
-
-    <pre style="height: 200px;">
-@Html.Raw(string.Join(Environment.NewLine,Model.BattleLog))
-</pre>
-
-    foreach (var pawn in Model.GameState.Pawns)
-    {
-
-        var spec = GameRules.GetShipByCode(pawn.SpecificationCode);
-
-        <div data-pawn-id="@pawn.Id">
-            <h3>
-                @spec.Name
-            </h3>
-            <div class="subsystem-list">
-                <h4>Weapons</h4>
-                @await Component.InvokeAsync("SubsystemStatus", new { pawn, subsystem = KnownComponentTypes.Weapon })
-            </div>
-            <div class="engines">
-                <h4>Engines</h4>
-                @await Component.InvokeAsync("SubsystemStatus", new { pawn, subsystem = KnownComponentTypes.Engines })
-            </div>
-            <div class="special">
-                <h4>Special</h4>
-                @await Component.InvokeAsync("SubsystemStatus", new { pawn, subsystem = KnownComponentTypes.Special })
-            </div>
-            <div class="hull">
-                <h4>Hull</h4>
-                @await Component.InvokeAsync("SubsystemStatus", new { pawn, subsystem = KnownComponentTypes.Hull })
-            </div>
-
-            <input data-pawn-input-role="damage-amount" type="text" />
-            <input data-pawn-input-role="take-damage" type="button" value="Take Damage to Internals" />
-        </div>
-    }
+        
+    </div>
 }
+
 

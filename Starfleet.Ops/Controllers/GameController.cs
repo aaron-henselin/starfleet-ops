@@ -21,10 +21,19 @@ namespace Starfleet.Ops.Controllers
         public bool IsGameResuming { get; set; }
         public int NewDamage { get; set; }
         public Guid NewDamageTarget { get; set; }
-        public List<string> BattleLog { get; set; } = new List<string>();
+
+
     }
 
-   
+    public class BattleAction
+    {
+        public Guid PawnId { get; set; }
+
+        public int NumRolls { get; set; }
+
+        public string BrowserGameState { get; set; }
+        public GameState GameState { get; internal set; }
+    }
 
     public class GameController : Controller
     {
@@ -49,6 +58,7 @@ namespace Starfleet.Ops.Controllers
 
         public class SimulationResult
         {
+            public bool Allocated { get; set; }
             public int TrackNumber { get; set; }
             public string AffectedUnitCode { get; set; }
         }
@@ -93,32 +103,31 @@ namespace Starfleet.Ops.Controllers
                     break;
                 }
 
-                //if (!damageTaken)
-                //    pawnToAffect.ExcessDamage++;
-
+                result.Allocated = damageTaken;
                 return result;
             }
         }
 
         [HttpPost]
-        public IActionResult Action(GameViewModel vm)
+        public PartialViewResult Action(BattleAction vm)
         {
             vm.GameState = JsonConvert.DeserializeObject<GameState>(vm.BrowserGameState);
-            var pawnToAffect = vm.GameState.Pawns.Single(x => x.Id == vm.NewDamageTarget);
-            var internalRoles = vm.NewDamage;
+            var pawnToAffect = vm.GameState.Pawns.Single(x => x.Id == vm.PawnId);
+            var internalRoles = vm.NumRolls;
 
 
-            vm.BattleLog = new List<string>();
+            //vm.BattleLog = new List<string>();
 
             var sim =  new MultiRoundDamageAllocationSimulator();
             for (int i = 0; i < internalRoles; i++)
             {
                 var result = sim.TakeDamage(pawnToAffect);
-                
-                vm.BattleLog.Add(result.TrackNumber + " - " + result.AffectedUnitCode);
+                pawnToAffect.BattleLog.Add(result.TrackNumber + " - " + result.AffectedUnitCode);
             }
+            
+            this.ViewBag.PostActionGameState = JsonConvert.SerializeObject(vm.GameState);
 
-            return View("Index",vm);
+            return PartialView("_Pawn",pawnToAffect);
         }
 
        
