@@ -6,6 +6,12 @@
 
 @Html.HiddenFor(x=> x.BrowserGameState)
 @Html.HiddenFor(x => x.PawnId)
-@Html.TextBoxFor(x => x.NumRolls)
 
-<input data-pawn-input-role="take-damage" type="button" class="btn btn-primary" value="Take Damage to Internals"/>
+<div class="row">
+    <div class="col-md-3">
+        @Html.TextBoxFor(x => x.NumRolls, null, new {@class = "form-control"})
+    </div>
+    <div class="col-md-6">
+        <input data-pawn-input-role="take-damage" type="button" class="btn btn-primary form-control" value="Take Damage to Internals"/>
+    </div>
+</div>

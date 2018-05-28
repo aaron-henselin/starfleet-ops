@@ -1,0 +1,36 @@
+﻿@using Starfleet.Ops.Utility
+@model object
+
+@{
+    ViewBag.Title = "File Browser";
+    Layout = "_Layout";
+}
+<style>
+    .main-menu {
+        font-family: monospace;
+    }
+</style>
+
+<div class="main-menu">
+<h1>Starfleet Ops</h1>
+    <h5>File Browser</h5>
+    @{
+        var jsonFiles = new JsonDataReader().FindJsonFiles(AppEnvironment.Current.AppData);
+
+    }
+    <ul id="panelbar">
+    @foreach (var file in jsonFiles)
+    {
+        <li>
+            <span>@file.Path</span>
+            <div>
+                <pre>
+ @file.Contents
+</pre>
+               
+            </div>
+        </li>
+    }
+        </ul>
+
+</div>

@@ -116,15 +116,16 @@ namespace Starfleet.Ops.Controllers
             var internalRoles = vm.NumRolls;
 
 
-            //vm.BattleLog = new List<string>();
-            pawnToAffect.BattleLog.Add($"== Simulating {vm.NumRolls} Internals ==");
+            var localLog= new List<string>();
+            localLog.Add($"== Simulating {vm.NumRolls} Internals ==");
             var sim =  new MultiRoundDamageAllocationSimulator();
             for (int i = 0; i < internalRoles; i++)
             {
                 var result = sim.TakeDamage(pawnToAffect);
-                pawnToAffect.BattleLog.Add(result.TrackNumber + " - " + result.AffectedUnitCode);
+                localLog.Add(result.TrackNumber + " - " + result.AffectedUnitCode);
             }
 
+            pawnToAffect.BattleLog.InsertRange(0,localLog);
 
             this.ViewBag.PostActionGameState = JsonConvert.SerializeObject(vm.GameState);
 

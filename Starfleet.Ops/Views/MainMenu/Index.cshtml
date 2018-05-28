@@ -1,7 +1,7 @@
 ﻿@model object
 
 @{
-    ViewBag.Title = "title";
+    ViewBag.Title = "Main Menu";
     Layout = "_Layout";
 }
 <style>
@@ -21,7 +21,12 @@
         <li>
             <a href="@Url.Action("Index", "GameStateSpecificationBuilder")">New Game 
                 <span>- This will erase your previous game!</span>
-                </a>
+            </a>
+        </li>
+        <li>
+            <a href="@Url.Action("Index", "FileBrowser")">
+                Rule File Browser
+            </a>
         </li>
     </ul>
 </div>

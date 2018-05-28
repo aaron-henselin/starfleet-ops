@@ -4,6 +4,9 @@ $(document).on("click",
     "[data-pawn-input-role='take-damage']",
     function () {
         var $form = $(this).closest("form");
+
+        kendo.ui.progress($form, true);
+
         $form.find("[name='BrowserGameState']").val(localStorage.getItem('gs'));
 
         var data = $form.serialize();
