@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="App_Data\Rules\Ships\Romulan\" />
     <Folder Include="App_Data\SaveGames\" />
     <Folder Include="Pages\Components\" />
     <Folder Include="Views\Shared\Components\NewFolder\" />

@@ -1,0 +1,57 @@
+{
+"Code": "RomulanFrigate",
+  "Faction": "Romulan",
+  "Name": "RF1",
+  "Components": {
+    "Torp": "2",
+    "Phaser": "5",
+    "F Hull": "2",
+	"C Hull": "0",
+	"R Hull": "3",
+    "Bridge": "2",
+    "AWR": "2",
+    "Shuttle": "2",
+    "Lab": "2",
+    "Drone": "0",
+    "Trans": "2",
+    "Tractor": "2",
+    "Probe": "1",
+    "Battery": "2",
+    "Emer Bridge": "1",
+    "Aux Control": "0",
+    "Impulse": "2",
+    "Left W En": "6",
+    "Right W En": "6",
+    "Center W En": "0",
+    "Sensor": "5",
+    "Scanner": "5",
+    "Damage Control": "3",
+    "Excess Damage": "3"
+  }
+}
+
+
+//Torps=2
+//Phaser=5
+//F Hull=3
+//C Hull=0
+//R Hull=3
+//Bridge=2
+//AWR=2
+//Shuttle=2
+//Labs=2
+//Drone=0
+//Trans=2
+//Tractor=2
+//Probe=1
+//Battery=2
+//EMG Bridge=1
+//AUX control=0
+//Impulse=2
+//L warp=6
+//R warp=6
+//C warp=0
+//Sensor=5
+//Scanner=5
+//Damage Control=3
+//EX damage=3

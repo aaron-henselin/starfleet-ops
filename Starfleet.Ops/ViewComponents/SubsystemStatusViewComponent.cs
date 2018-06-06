@@ -30,6 +30,9 @@ namespace Starfleet.Ops.ViewComponents
             {
                 var componentCode = component.Key;
 
+                if (spec.Components[componentCode] == 0)
+                    continue;
+
                 var status =
                 new ComponentStatusViewModel
                 {

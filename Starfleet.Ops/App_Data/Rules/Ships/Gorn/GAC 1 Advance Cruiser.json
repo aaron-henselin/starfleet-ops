@@ -1,0 +1,32 @@
+{
+  "Code": "Gac1GornADVCruiser",
+  "Faction": "Gorn",
+  "Name": "GAC 1 Advance Cruiser",
+  "Components": {
+    "Torp": "14",
+    "Phaser": "13",
+    "F Hull": "4",
+    "C Hull": "8",
+    "R Hull": "4",
+    "Bridge": "2",
+    "AWR": "4",
+    "Shuttle": "4",
+    "Lab": "4",
+    "Drone": "0",
+    "Trans": "3",
+    "Tractor": "2",
+    "Probe": "1",
+    "Battery": "5",
+    "Emer Bridge": "1",
+    "Aux Control": "2",
+    "Impulse": "4",
+    "Left W En": "20",
+    "Right W En": "20",
+    "Center W En": "0",
+    "Sensor": "5",
+    "Scanner": "5",
+    "Damage Control": "6",
+    "Excess Damage": "6"
+  }
+}
+

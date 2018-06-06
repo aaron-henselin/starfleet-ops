@@ -1,0 +1,57 @@
+{
+"Code": "RomulanDestroyer",
+  "Faction": "Romulan",
+  "Name": "RD1",
+  "Components": {
+    "Torp": "3",
+    "Phaser": "8",
+    "F Hull": "2",
+	"C Hull": "0",
+	"R Hull": "4",
+    "Bridge": "2",
+    "AWR": "6",
+    "Shuttle": "4",
+    "Lab": "2",
+    "Drone": "0",
+    "Trans": "2",
+    "Tractor": "4",
+    "Probe": "0",
+    "Battery": "6",
+    "Emer Bridge": "1",
+    "Aux Control": "2",
+    "Impulse": "2",
+    "Left W En": "8",
+    "Right W En": "8",
+    "Center W En": "0",
+    "Sensor": "5",
+    "Scanner": "5",
+    "Damage Control": "5",
+    "Excess Damage": "5"
+  }
+}
+
+
+//Torps=3
+//Phaser=8
+//F Hull=2
+//C Hull=0
+//R Hull=4
+//Bridge=2
+//AWR=2
+//Shuttle=4
+//Labs=2
+//Drone=0
+//Trans=2
+//Tractor=4
+//Probe=0
+//Battery=6
+//EMG Bridge=1
+//AUX control=2
+//Impulse=2
+//L warp=8
+//R warp=8
+//C warp=0
+//Sensor=5
+//Scanner=5
+//Damage Control=5
+//EX damage=5

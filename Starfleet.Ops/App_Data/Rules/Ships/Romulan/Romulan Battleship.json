@@ -1,0 +1,59 @@
+{
+"Code": "RomulanBattleship",
+  "Faction": "Romulan",
+  "Name": "King Condor",
+  "Components": {
+    "Torp": "11",
+    "Phaser": "21",
+    "F Hull": "15",
+	"C Hull": "0",
+	"R Hull": "34",
+    "Bridge": "3",
+	"Flag Bridge": "2",
+    "AWR": "6",
+    "Shuttle": "12",
+    "Lab": "6",
+    "Drone": "0",
+    "Trans": "10",
+    "Tractor": "6",
+    "Probe": "1",
+    "Battery": "13",
+    "Emer Bridge": "1",
+    "Aux Control": "2",
+    "Impulse": "12",
+    "Left W En": "30",
+    "Right W En": "30",
+    "Center W En": "0",
+    "Sensor": "10",
+    "Scanner": "10",
+    "Damage Control": "10",
+    "Excess Damage": "10"
+  }
+}
+
+
+//Torps=11
+//Phaser=21
+//F Hull=15
+//C Hull=0
+//R Hull=34
+//Bridge=3
+//Flag Bridge=2
+//AWR=6
+//Shuttle=12
+//Labs=6
+//Drone=0
+//Trans=10
+//Tractor=6
+//Probe=1
+//Battery=13
+//EMG Bridge=1
+//AUX control=2
+//Impulse=12
+//L warp=30
+//R warp=30
+//C warp=0
+//Sensor=10
+//Scanner=10
+//Damage Control=10
+//EX damage=10
