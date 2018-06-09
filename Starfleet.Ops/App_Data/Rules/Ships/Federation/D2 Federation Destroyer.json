@@ -1,0 +1,57 @@
+{
+"Code": "D2FederationDestroyer",
+  "Faction": "Federation",
+  "Name": "FedD2",
+  "Components": {
+    "Torp": "4",
+    "Phaser": "9",
+    "F Hull": "0",
+	"C Hull": "10",
+	"R Hull": "0",
+    "Bridge": "2",
+    "AWR": "1",
+    "Shuttle": "2",
+    "Lab": "4",
+    "Drone": "2",
+    "Trans": "2",
+    "Tractor": "2",
+    "Probe": "1",
+    "Battery": "3",
+    "Emer Bridge": "1",
+    "Aux Control": "2",
+    "Impulse": "4",
+    "Left W En": "12",
+    "Right W En": "12",
+    "Center W En": "0",
+    "Sensor": "6",
+    "Scanner": "6",
+    "Damage Control": "5",
+    "Excess Damage": "4"
+  }
+}
+
+
+//Torps=4
+//Phaser=9
+//F Hull=0
+//C Hull=10
+//R Hull=0
+//Bridge=2
+//AWR=1
+//Shuttle=2
+//Labs=4
+//Drone=2
+//Trans=2
+//Tractor=2
+//Probe=1
+//Battery=3
+//EMG Bridge=1
+//AUX control=2
+//Impulse=4
+//L warp=12
+//R warp=12
+//C warp=0
+//Sensor=6
+//Scanner=6
+//Damage Control=5
+//EX damage=4

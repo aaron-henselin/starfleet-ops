@@ -1,0 +1,59 @@
+{
+"Code": "BS1FederationBattleship",
+  "Faction": "Federation",
+  "Name": "FedBS1",
+  "Components": {
+    "Torp": "10",
+    "Phaser": "21",
+    "F Hull": "22",
+	"C Hull": "16",
+	"R Hull": "12",
+    "Bridge": "2",
+	"Flag Bridge": "2",
+    "AWR": "12",
+    "Shuttle": "12",
+    "Lab": "6",
+    "Drone": "9",
+    "Trans": "8",
+    "Tractor": "5",
+    "Probe": "2",
+    "Battery": "12",
+    "Emer Bridge": "2",
+    "Aux Control": "2",
+    "Impulse": "6",
+    "Left W En": "15",
+    "Right W En": "15",
+    "Center W En": "30",
+    "Sensor": "10",
+    "Scanner": "10",
+    "Damage Control": "10",
+    "Excess Damage": "14"
+  }
+}
+
+
+//Torps=10
+//Phaser=21
+//F Hull=22
+//C Hull=16
+//R Hull=12
+//Bridge=2
+//Flag Bridge=2
+//AWR=12
+//Shuttle=12
+//Labs=6
+//Drone=9
+//Trans=8
+//Tractor=5
+//Probe=2
+//Battery=12
+//EMG Bridge=2
+//AUX control=2
+//Impulse=6
+//L warp=15
+//R warp=15
+//C warp=30
+//Sensor=10
+//Scanner=10
+//Damage Control=10
+//EX damage=14
