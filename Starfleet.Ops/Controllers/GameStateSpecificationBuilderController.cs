@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Starfleet.Ops.Domain.GameState;
 using Starfleet.Ops.Domain.Rules;
+using Starfleet.Ops.Infrastructure;
 using Starfleet.Ops.Utility;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -17,6 +18,7 @@ namespace Starfleet.Ops.Controllers
     {
         public List<SelectListItem> AllShips { get; set; } = new List<SelectListItem>();
         public List<ShipSelection> SelectedShips { get; set; } = new List<ShipSelection>();
+        public string GameName { get; set; }
     }
 
     public class ShipSelection
@@ -28,6 +30,13 @@ namespace Starfleet.Ops.Controllers
 
     public class GameStateSpecificationBuilderController : Controller
     {
+        private readonly GameStateRepository _gsRepo;
+
+        public GameStateSpecificationBuilderController(GameStateRepository gsRepo)
+        {
+            _gsRepo = gsRepo;
+        }
+
         private IEnumerable<SelectListItem> CreateShipOptions()
         {
             var blankOption = new SelectListItem{Text="-- Select Ship --",Value=string.Empty};
@@ -81,14 +90,18 @@ namespace Starfleet.Ops.Controllers
             var shipsToCreate = vm.SelectedShips.Where(x => !string.IsNullOrWhiteSpace(x.Code));
 
             var gs = new GameState();
+            gs.Id = Guid.NewGuid();
             foreach (var shipToCreate in shipsToCreate)
             {
                 var spec = GameRules.GetShipByCode(shipToCreate.Code);
                 var pawn = Pawn.FromSpecification(spec);
+                pawn.GameStateId = gs.Id.Value;
                 pawn.Name = shipToCreate.Name;
                 gs.Pawns.Add(pawn);
             }
-            
+
+        
+            _gsRepo.Save(gs);
 
             return View(gs);
         }

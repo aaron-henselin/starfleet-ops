@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Starfleet.Ops.Infrastructure;
 using Starfleet.Ops.Utility;
 
 namespace Starfleet.Ops.Domain.GameState
@@ -20,14 +23,19 @@ namespace Starfleet.Ops.Domain.GameState
 
 
     }
-
-    public class GameState
+    
+    [Table("Game")]
+    public class GameState : CosmosEntity
     {
+        [JsonIgnore]
         public List<Pawn> Pawns { get; set; } = new List<Pawn>();
+
+        public string Name { get; set; }
     }
 
 
-    public class Pawn
+    [Table("Pawn")]
+    public class Pawn : CosmosEntity
     {
 
 
@@ -41,12 +49,15 @@ namespace Starfleet.Ops.Domain.GameState
             };
         }
 
-        public Guid Id { get; set; }
+
+        public Guid GameStateId { get; set; }
 
         public string SpecificationCode { get; set; }
 
+        [ComplexData]
         public Dictionary<string, int> ComponentsRemaining { get; set; } = new Dictionary<string, int>();
 
+        [ComplexData]
         public List<string> BattleLog { get; set; } = new List<string>();
         public string Name { get; set; }
     }

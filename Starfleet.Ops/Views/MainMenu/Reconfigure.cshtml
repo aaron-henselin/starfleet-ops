@@ -1,0 +1,18 @@
+﻿@model Starfleet.Ops.Controllers.ReconfigureViewModel
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>First time setup</title>
+</head>
+<body>
+<div>
+      @using (Html.BeginForm())
+      {
+          @Html.TextBoxFor(x => x.NewConnectionString)
+          <input type="submit" value="save"/>
+      }
+</div>
+</body>
+</html>

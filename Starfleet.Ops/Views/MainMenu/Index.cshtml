@@ -1,4 +1,4 @@
-﻿@model object
+﻿@model Starfleet.Ops.Controllers.MainMenuViewModel
 
 @{
     ViewBag.Title = "Main Menu";
@@ -16,11 +16,13 @@
 
     <ul>
         <li>
-            <a href="@Url.Action("Index", "Game")">Continue Game</a>
+            @foreach (var item in Model.OpenGames)
+            {
+                <a href="@Url.Action("ResumeGame", "Game",new{id=item.Id})">Join Game @item.Name</a>
+            }
         </li>
         <li>
             <a href="@Url.Action("Index", "GameStateSpecificationBuilder")">New Game 
-                <span>- This will erase your previous game!</span>
             </a>
         </li>
         <li>

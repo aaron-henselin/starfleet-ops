@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using Starfleet.Ops.Domain.Framework;
 using Starfleet.Ops.Domain.GameState;
 using Starfleet.Ops.Domain.Rules;
+using Starfleet.Ops.Infrastructure;
 using Starfleet.Ops.Utility;
 
 namespace Starfleet.Ops.Controllers
@@ -37,23 +38,35 @@ namespace Starfleet.Ops.Controllers
 
     public class GameController : Controller
     {
-        [HttpGet]
-        public IActionResult Index()
-        {
-            GameViewModel vm;
-            vm = new GameViewModel();
-            vm.IsGameResuming = true;
+        private readonly GameStateRepository _gsRepo;
 
-            return View(vm);
+        public GameController(GameStateRepository gsRepo)
+        {
+            _gsRepo = gsRepo;
         }
+        //[HttpGet]
+        //public IActionResult Index()
+        //{
+        //    GameViewModel vm;
+        //    vm = new GameViewModel();
+        //    vm.IsGameResuming = true;
 
-        [HttpPost]
-        public IActionResult ResumeGame(GameViewModel vm)
+        //    return View(vm);
+        //}
+
+
+        public IActionResult ResumeGame(Guid id)
         {
-            vm.GameState = JsonConvert.DeserializeObject<GameState>(vm.BrowserGameState);
-            vm.IsGameResuming = false;
+          
+            var gs = _gsRepo.GetById(id);
 
-            return View("Index",vm);
+            var vm = new GameViewModel
+            {
+                GameState = gs.Result,
+                IsGameResuming = false
+            };
+
+            return View("Index", vm);
         }
 
         public class SimulationResult
@@ -109,10 +122,13 @@ namespace Starfleet.Ops.Controllers
         }
 
         [HttpPost]
-        public PartialViewResult Action(BattleAction vm)
+        public PartialViewResult Action(Guid id,BattleAction vm)
         {
-            vm.GameState = JsonConvert.DeserializeObject<GameState>(vm.BrowserGameState);
-            var pawnToAffect = vm.GameState.Pawns.Single(x => x.Id == vm.PawnId);
+          
+            var gs = _gsRepo.GetById(id).Result;
+
+           
+            var pawnToAffect = gs.Pawns.Single(x => x.Id == vm.PawnId);
             var internalRoles = vm.NumRolls;
 
 
@@ -127,6 +143,9 @@ namespace Starfleet.Ops.Controllers
 
             pawnToAffect.BattleLog.InsertRange(0,localLog);
 
+            _gsRepo.Save(gs);
+
+            vm.GameState = gs;
             this.ViewBag.PostActionGameState = JsonConvert.SerializeObject(vm.GameState);
 
             return PartialView("_Pawn",pawnToAffect);

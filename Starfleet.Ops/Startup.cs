@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Starfleet.Ops.Infrastructure;
 
 namespace Starfleet.Ops
 {
@@ -23,6 +24,7 @@ namespace Starfleet.Ops
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            services.ConfigureWritable<CosmosDbConfiguration>(Configuration.GetSection("AzureDb"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
