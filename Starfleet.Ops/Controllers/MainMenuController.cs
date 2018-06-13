@@ -23,12 +23,15 @@ namespace Starfleet.Ops.Controllers
     public class MainMenuController : Controller
     {
         private readonly IWritableOptions<CosmosDbConfiguration> _options;
-        private readonly GameStateRepository _gsRepo;
+        private GameStateRepository _gsRepo;
 
-        public MainMenuController(IWritableOptions<CosmosDbConfiguration> options)
+
+        public MainMenuController(IWritableOptions<CosmosDbConfiguration> options, GameStateRepository gsRepo)
         {
             _options = options;
-            //_gsRepo = gsRepo;
+            _gsRepo = gsRepo;
+
+           
         }
 
         // GET: /<controller>/
@@ -36,9 +39,7 @@ namespace Starfleet.Ops.Controllers
         {
             if (string.IsNullOrEmpty(_options.Value.ConnectionString))
                 return RedirectToAction("Reconfigure");
-
-
-     
+            
             var openGames = _gsRepo.GetAll().Result;
             var mm = new MainMenuViewModel {OpenGames = openGames};
 

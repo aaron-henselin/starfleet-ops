@@ -36,8 +36,28 @@ namespace Starfleet.Ops.Infrastructure
             _file = file;
         }
 
-        public T Value => _options.CurrentValue;
-        public T Get(string name) => _options.Get(name);
+        public T Value  {
+
+            get
+            {
+                var fileProvider = _environment.ContentRootFileProvider;
+                var fileInfo = fileProvider.GetFileInfo(_file);
+                var physicalPath = fileInfo.PhysicalPath;
+
+                if (!File.Exists(physicalPath))
+                    File.WriteAllText(physicalPath, "{}");
+
+                var jObject = JsonConvert.DeserializeObject<JObject>(File.ReadAllText(physicalPath));
+                return jObject.TryGetValue(_section, out JToken section) ?
+                    JsonConvert.DeserializeObject<T>(section.ToString()) : (Value ?? new T());
+
+            }
+        }
+
+        public T Get(string name)
+        {
+            return Value;
+        }
 
         public void Update(Action<T> applyChanges)
         {
@@ -56,6 +76,7 @@ namespace Starfleet.Ops.Infrastructure
 
             jObject[_section] = JObject.Parse(JsonConvert.SerializeObject(sectionObject));
             File.WriteAllText(physicalPath, JsonConvert.SerializeObject(jObject, Formatting.Indented));
+            
         }
     }
 

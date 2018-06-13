@@ -25,6 +25,9 @@ namespace Starfleet.Ops
         {
             services.AddMvc();
             services.ConfigureWritable<CosmosDbConfiguration>(Configuration.GetSection("AzureDb"));
+
+            services.AddScoped<GameStateRepository>();
+            services.AddScoped<CosmosOrm>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
