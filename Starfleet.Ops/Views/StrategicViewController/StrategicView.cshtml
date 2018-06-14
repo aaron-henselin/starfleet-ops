@@ -1,0 +1,39 @@
+﻿
+@model Starfleet.Ops.Controllers.StrategicViewModel
+
+@{
+    ViewBag.Title = "Setup Game";
+    Layout = "_Layout";
+}
+
+<h2>StrategicView</h2>
+
+@if (Model.Unassigned.Any())
+{
+
+    <div>
+        <h2>UNASSIGNED</h2>
+        <ul>
+            @foreach (var pawn in Model.Unassigned)
+            {
+                <li>@pawn.Name</li>
+            }
+        </ul>
+    </div>
+
+}
+
+@foreach (var fleet in Model.AllFleets)
+{
+
+    <div>
+        <h2>@fleet.Name</h2>
+        <ul>
+            @foreach (var pawn in fleet.Assigned)
+            {
+                <li>@pawn.Name</li>
+            }
+        </ul>
+    </div>
+}
+

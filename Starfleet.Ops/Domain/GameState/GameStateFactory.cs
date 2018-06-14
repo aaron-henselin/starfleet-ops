@@ -30,7 +30,20 @@ namespace Starfleet.Ops.Domain.GameState
         [JsonIgnore]
         public List<Pawn> Pawns { get; set; } = new List<Pawn>();
 
+        [JsonIgnore]
+        public List<Fleet> Fleets { get; set; } = new List<Fleet>();
+
+
         public string Name { get; set; }
+    }
+
+    [Table("Fleet")]
+    public class Fleet : CosmosEntity
+    {
+        public string Name { get; set; }
+
+        public Guid GameStateId { get; set; }
+
     }
 
 
@@ -51,6 +64,7 @@ namespace Starfleet.Ops.Domain.GameState
 
 
         public Guid GameStateId { get; set; }
+        public Guid FleetId { get; set; }
 
         public string SpecificationCode { get; set; }
 

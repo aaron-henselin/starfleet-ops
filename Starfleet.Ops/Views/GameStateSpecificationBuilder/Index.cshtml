@@ -46,7 +46,7 @@
     <script>
         $("select").change(function() { $("form").submit() });
         $("#beginGame").click(function () {
-            $("form").attr("action",'@Url.Action("BeginGame")');
+            $("form").attr("action",'@Url.Action("BeginGame",new { id = Model.Id})');
             $("form").submit();
         });
         

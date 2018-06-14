@@ -176,6 +176,7 @@ namespace Starfleet.Ops.Infrastructure
         {
             var gameStates = await _orm.Find<GameState>($"RowKey eq '{id}'");
             var pawns = await _orm.Find<Pawn>($"{nameof(Pawn.GameStateId)} eq '{id}'");
+            var fleets = await _orm.Find<Fleet>($"{nameof(Fleet.GameStateId)} eq '{id}'");
 
             var gs = gameStates.Single();
             gs.Pawns = pawns.ToList();
@@ -188,7 +189,16 @@ namespace Starfleet.Ops.Infrastructure
             _orm.Save(gs);
 
             foreach (var pawn in gs.Pawns)
+            {
+                pawn.GameStateId = gs.Id.Value;
                 _orm.Save(pawn);
+            }
+
+            foreach (var fleet in gs.Fleets)
+            {
+                fleet.GameStateId = gs.Id.Value;
+                _orm.Save(fleet);
+            }
         }
     }
 }

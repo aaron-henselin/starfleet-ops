@@ -1,7 +1,7 @@
 ﻿
 @using Starfleet.Ops.Domain.Rules
 @using Starfleet.Ops.Utility
-@model Starfleet.Ops.Controllers.GameViewModel
+@model Starfleet.Ops.Controllers.BattleViewModel
 
 @{
     ViewBag.Title = "Battle";
@@ -61,7 +61,7 @@
 
 @if (Model.IsGameResuming)
 {
-    using (Html.BeginForm("ResumeGame", "Game"))
+    using (Html.BeginForm("Battle", "Game"))
     {
         @Html.HiddenFor(x => x.BrowserGameState)
     }

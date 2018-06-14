@@ -13,7 +13,7 @@ using Starfleet.Ops.Utility;
 
 namespace Starfleet.Ops.Controllers
 {
-    public class GameViewModel
+    public class BattleViewModel
     {
         public GameState GameState { get; set; }
 
@@ -22,8 +22,7 @@ namespace Starfleet.Ops.Controllers
         public bool IsGameResuming { get; set; }
         public int NewDamage { get; set; }
         public Guid NewDamageTarget { get; set; }
-
-
+        public IEnumerable<Fleet> ParticipatingFleets { get; internal set; }
     }
 
     public class BattleAction
@@ -55,14 +54,18 @@ namespace Starfleet.Ops.Controllers
         //}
 
 
-        public IActionResult ResumeGame(Guid id)
+        public IActionResult Battle(Guid id, Guid[] fleets)
         {
           
-            var gs = _gsRepo.GetById(id);
+            var gs = _gsRepo.GetById(id).Result;
 
-            var vm = new GameViewModel
+            var participatingFleets = gs.Fleets
+                .Where(x => fleets.Contains(x.Id.Value));
+            
+            var vm = new BattleViewModel
             {
-                GameState = gs.Result,
+                ParticipatingFleets = participatingFleets,
+                GameState = gs,
                 IsGameResuming = false
             };
 

@@ -19,10 +19,22 @@ namespace Starfleet.Ops.Controllers
         public List<SelectListItem> AllShips { get; set; } = new List<SelectListItem>();
         public List<ShipSelection> SelectedShips { get; set; } = new List<ShipSelection>();
         public string GameName { get; set; }
+        public Guid? Id { get; internal set; }
     }
 
     public class ShipSelection
     {
+        public ShipSelection()
+        { }
+
+        public ShipSelection(Pawn p)
+        {
+            ShipId = p.Id;
+            Code = p.SpecificationCode;
+            Name = p.Name;
+        }
+
+        public Guid? ShipId { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
     }
@@ -55,14 +67,23 @@ namespace Starfleet.Ops.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(Guid? id)
         {
             var vm = new GameStateSpecificationViewModel
             {
-              AllShips  = CreateShipOptions().ToList(),
-              SelectedShips = new List<ShipSelection>()
+                Id = id,
+                AllShips = CreateShipOptions().ToList(),
+                SelectedShips = new List<ShipSelection>()
             };
-           
+
+            GameState existingGameState;
+            if (id != null)
+            {
+                existingGameState = _gsRepo.GetById(id.Value).Result;
+                foreach (var p in existingGameState.Pawns)
+                    vm.SelectedShips.Add(new ShipSelection(p));
+            }
+
             RemoveEmptyEntriesAndEnsureLastOptionEmpty(vm);
 
             return View(vm);
@@ -76,8 +97,9 @@ namespace Starfleet.Ops.Controllers
         }
 
         [HttpPost]
-        public IActionResult Index(GameStateSpecificationViewModel vm)
+        public IActionResult Index(Guid? id,GameStateSpecificationViewModel vm)
         {
+            vm.Id = id;
             vm.AllShips = CreateShipOptions().ToList();
             RemoveEmptyEntriesAndEnsureLastOptionEmpty(vm);
 
@@ -85,12 +107,14 @@ namespace Starfleet.Ops.Controllers
         }
 
         [HttpPost]
-        public IActionResult BeginGame(GameStateSpecificationViewModel vm)
+        public IActionResult BeginGame(Guid? id,GameStateSpecificationViewModel vm)
         {
             var shipsToCreate = vm.SelectedShips.Where(x => !string.IsNullOrWhiteSpace(x.Code));
 
-            var gs = new GameState();
-            gs.Id = Guid.NewGuid();
+            var gs = new GameState
+            {
+                Id = id ?? Guid.NewGuid()
+            };
             foreach (var shipToCreate in shipsToCreate)
             {
                 var spec = GameRules.GetShipByCode(shipToCreate.Code);
