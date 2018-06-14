@@ -83,19 +83,31 @@ namespace Starfleet.Ops.Infrastructure
 
     public class CosmosOrm
     {
+        private bool _offline=true;
         private CloudTableClient _client;
 
         private static Dictionary<Type,Uri> _collectionUris = new Dictionary<Type, Uri>();
 
         public CosmosOrm(IWritableOptions<CosmosDbConfiguration> options)
         {
+            if (null == options.Value.ConnectionString)
+                return;
+
+           
             var account = CloudStorageAccount.Parse(options.Value.ConnectionString);
             _client = account.CreateCloudTableClient();
+            _offline = false;
+        }
 
+        private void AssertIsOnline() {
+            if (_offline)
+                throw new Exception("Application is not connected to storage account.");
         }
 
         public async void Save<T>(T item) where T : CosmosEntity
         {
+            AssertIsOnline();
+
             if (!item.IsDirty)
                 return;
             
@@ -110,6 +122,8 @@ namespace Starfleet.Ops.Infrastructure
 
         public async Task<IReadOnlyCollection<T>> Find<T>(string condition=null) where T : CosmosEntity, new()
         {
+            AssertIsOnline();
+
             var cloudTable = GetOrCreateTable<T>().Result;
             var query = new TableQuery<T> {FilterString = condition};
             var items = await cloudTable.ExecuteQuerySegmentedAsync(query,new TableContinuationToken());
