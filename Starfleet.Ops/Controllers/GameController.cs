@@ -54,7 +54,7 @@ namespace Starfleet.Ops.Controllers
         //}
 
 
-        public IActionResult Battle(Guid id, Guid[] fleets)
+        public IActionResult Battle(Guid id, [FromQuery]Guid[] fleets)
         {
           
             var gs = _gsRepo.GetById(id).Result;

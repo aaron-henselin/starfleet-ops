@@ -50,7 +50,10 @@ namespace Starfleet.Ops.Domain.GameState
     [Table("Pawn")]
     public class Pawn : CosmosEntity
     {
-
+        public void Repair(ShipSpecification spec)
+        {
+            ComponentsRemaining = spec.Components.ToDictionary(x => x.Key, x => x.Value);
+        }
 
         public static Pawn FromSpecification(ShipSpecification spec)
         {

@@ -68,19 +68,34 @@
     return;
 }
 
-<ul id="panelbar">
-    @foreach (var pawn in Model.GameState.Pawns)
-    {
-        var spec = GameRules.GetShipByCode(pawn.SpecificationCode);
-        <li>
-            <span class="k-link">
-                <span class="ship-class-badge">@spec.Name</span>
-                @pawn.Name
-            </span>
-            <div data-role="async-container">
-                @Html.Partial("_Pawn", pawn)
-            </div>
-        </li>
-    }
-</ul>
+<a href="@Url.Action("Index", "StrategicView", new { id=Model.GameState.Id})">Back to strategic view</a>
+
+
+@foreach (var fleet in Model.ParticipatingFleets)
+{
+    <h2>@fleet.Name</h2>
+    <ul class="panelbar">
+        @foreach (var pawn in Model.GameState.Pawns)
+        {
+            if (pawn.FleetId != fleet.Id)
+            {
+                continue;
+            }
+
+            var spec = GameRules.GetShipByCode(pawn.SpecificationCode);
+            <li>
+                <span class="k-link">
+                    <span class="ship-class-badge">@spec.Name</span>
+                    @pawn.Name
+                </span>
+                <div data-role="async-container">
+                    @Html.Partial("_Pawn", pawn)
+                </div>
+            </li>
+        }
+    </ul>
+
+
+}
+
 

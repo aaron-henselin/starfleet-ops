@@ -18,7 +18,7 @@
         <li>
             @foreach (var item in Model.OpenGames)
             {
-                <a href="@Url.Action("Battle", "Game",new{id=item.Id})">Join Game @item.Name</a>
+                <a href="@Url.Action("Index", "StrategicView",new{id=item.Id})">Join Game @item.Name</a>
             }
         </li>
         <li>

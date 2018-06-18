@@ -1,0 +1,163 @@
+﻿
+@using Starfleet.Ops.Controllers
+@model Starfleet.Ops.Controllers.StrategicViewModel
+
+@{
+    ViewBag.Title = "Setup Game";
+    Layout = "_Layout";
+}
+
+<style>
+    .fleet {
+        border: 1px solid #000;
+        min-height: 400px;
+        padding: 20px;
+        padding-top:20px;
+    }
+
+    .fleet ul {
+        padding: 0;
+    }
+
+        .fleet.fleet-new {
+            border: 1px dotted #c0c0c0;
+        }
+
+    .fleet-selector {
+        display: block;
+        position: absolute;
+        margin-left: -20px;
+        margin-top: -20px;
+        width: 100%;
+        background-color: #ff6969;
+        border-bottom: 1px dashed grey;
+    }
+
+        .fleet-selector label {
+            margin-left: 40px;
+        }
+
+        .droptarget-prompt {
+            display: none;
+        }
+
+    .droptarget-highlight {
+        border: 1px dotted #c0c0c0;
+    }
+    .droptarget-highlight .droptarget-prompt {
+        display: block;
+    }
+
+    li.draggable {
+        display: block;
+        border: 1px solid #000;
+        text-align: center;
+        font-family: monospace;
+        margin-bottom: 10px;
+        background-color: white;
+    }
+
+    .no-display{ display: none;}
+
+    h2 {
+        text-align: center;
+    }
+</style>
+
+<div class="strategic-view">
+
+    <h2>StrategicView</h2>
+
+    <button type="button" class="btn btn-primary enable-fleet-selection">
+        Select ships for battle
+    </button>
+
+    <div class="no-display start-battle-prompt">
+        <span class="fleet-select-count"></span>
+        <button type="button" class="btn btn-primary start-battle-button">
+            Start
+        </button>
+    </div>
+
+    <div class="row">
+        @if (Model.Unassigned.Any())
+        {
+
+            <div class="col-md-4 fleet">
+                <h2>UNASSIGNED</h2>
+                <ul>
+                    @foreach (var pawn in Model.Unassigned)
+                    {
+                        <li class="draggable" data-pawn-id="@pawn.Id">@pawn.Name</li>
+                    }
+                </ul>
+            </div>
+
+        }
+
+        @foreach (var fleet in Model.AllFleets)
+        {
+
+            <div class="col-md-4 fleet droptarget" data-fleet-id="@fleet.Id">
+                <div class="fleet-selector no-display">
+                    <label class="checkbox">
+                        <input type="checkbox" name="includeInBattle" value="@fleet.Id"/>
+                        <span>Include in battle</span>
+                    </label>
+                </div>
+                <div >
+
+
+                    <h2>@fleet.Name</h2>
+
+                    <ul>
+
+                        @foreach (var pawn in fleet.Assigned)
+                        {
+                            <li class="draggable" data-pawn-id="@pawn.Id">
+                                @pawn.Name
+                            </li>
+                        }
+                        <h2 class="droptarget-prompt">Move to @fleet.Name</h2>
+                    </ul>
+                    @using (Html.BeginForm("RepairFleet", "StrategicView", new {id = Model.GameState.Id, fleetId = fleet.Id}))
+                    {
+                        <input class="btn btn-success" type="submit" value="Repair Fleet"/>
+                    }
+                </div>
+            </div>
+        }
+
+        <div class="col-md-4 fleet fleet-new">
+
+            <h2>+ Create New Fleet</h2>
+            @using (Html.BeginForm("CreateFleet", "StrategicView", new { id = Model.GameState.Id }))
+            {
+                <input required type="text" name="@nameof(CreateFleetViewModel.Name)" />
+                <input class="btn btn-primary" type="submit" value="create new fleet" />
+            }
+        </div>
+    </div>
+    <div class="no-display assign-to-fleet-form">
+        @using (Html.BeginForm("AssignToFleet", "StrategicView", new { id = Model.GameState.Id }))
+        {
+            <input required type="text" name="fleetId" />
+            <input required type="text" name="shipId" />
+            <input class="btn btn-primary" type="submit" />
+        }
+    </div>
+
+    <div class="no-display start-battle-form">
+        @using (Html.BeginForm("Battle", "Game", new { id = Model.GameState.Id }))
+        {
+            <input required type="text" name="fleetIds" />
+            <input class="btn btn-primary" type="submit" />
+        }
+    </div>
+</div>
+@section Scripts
+{
+
+
+
+}

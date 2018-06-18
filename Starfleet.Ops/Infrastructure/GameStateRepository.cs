@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -157,13 +158,21 @@ namespace Starfleet.Ops.Infrastructure
         }
     }
 
+    internal class GameStateRepositoryCache
+    {
+        public ConcurrentDictionary<Guid, GameState> GameStates { get; set; } = new ConcurrentDictionary<Guid, GameState>();
+    }
+
     public class GameStateRepository
     {
-        private CosmosOrm _orm;
+        private readonly CosmosOrm _orm;
+
+        private static readonly GameStateRepositoryCache _cache = new GameStateRepositoryCache();
 
         public GameStateRepository(CosmosOrm orm)
         {
             _orm = orm;
+           
         }
 
         public async Task<IEnumerable<GameState>> GetAll()
@@ -174,12 +183,16 @@ namespace Starfleet.Ops.Infrastructure
 
         public async Task<GameState> GetById(Guid id)
         {
+            if (_cache.GameStates.ContainsKey(id))
+                return _cache.GameStates[id];
+
             var gameStates = await _orm.Find<GameState>($"RowKey eq '{id}'");
             var pawns = await _orm.Find<Pawn>($"{nameof(Pawn.GameStateId)} eq '{id}'");
             var fleets = await _orm.Find<Fleet>($"{nameof(Fleet.GameStateId)} eq '{id}'");
 
             var gs = gameStates.Single();
             gs.Pawns = pawns.ToList();
+            gs.Fleets = fleets.ToList();
             return gs;
         }
 
@@ -199,6 +212,9 @@ namespace Starfleet.Ops.Infrastructure
                 fleet.GameStateId = gs.Id.Value;
                 _orm.Save(fleet);
             }
+
+            if (_cache.GameStates.ContainsKey(gs.Id.Value))
+                _cache.GameStates.Remove(gs.Id.Value, out var _);
         }
     }
 }
