@@ -21,7 +21,13 @@ namespace Starfleet.Ops.Controllers
     {
         public string Name { get; set; }
     }
-    
+
+    public class RenameFleetViewModel
+    {
+        public Guid Id { get; set; }
+        public string NewName { get; set; }
+    }
+
 
     public class FleetViewModel
     {
@@ -74,6 +80,16 @@ namespace Starfleet.Ops.Controllers
             gsRepo.Save(gs);
             return RedirectToAction("Index", "StrategicView", new { id });
         }
+
+        public IActionResult RenameFleet(Guid id, RenameFleetViewModel vm)
+        {
+            var gs = gsRepo.GetById(id).Result;
+            var f = gs.Fleets.First(x => id == vm.Id);
+            f.Name = vm.NewName;
+            gsRepo.Save(gs);
+            return RedirectToAction("Index", "StrategicView", new { id });
+        }
+
 
         public IActionResult CreateFleet(Guid id, CreateFleetViewModel vm)
         {

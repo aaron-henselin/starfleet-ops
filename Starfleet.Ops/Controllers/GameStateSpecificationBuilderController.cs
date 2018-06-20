@@ -109,25 +109,37 @@ namespace Starfleet.Ops.Controllers
         [HttpPost]
         public IActionResult BeginGame(Guid? id,GameStateSpecificationViewModel vm)
         {
-            var shipsToCreate = vm.SelectedShips.Where(x => !string.IsNullOrWhiteSpace(x.Code));
+            var shipsToCreate = vm.SelectedShips.Where(x => x.ShipId != null || !string.IsNullOrWhiteSpace(x.Code));
 
-            var gs = new GameState
-            {
-                Id = id ?? Guid.NewGuid()
-            };
+            GameState gs;
+            if (id != null)
+                gs = _gsRepo.GetById(id.Value).Result;
+            else
+                gs = new GameState{Id = Guid.NewGuid()};
+
             foreach (var shipToCreate in shipsToCreate)
             {
-                var spec = GameRules.GetShipByCode(shipToCreate.Code);
-                var pawn = Pawn.FromSpecification(spec);
-                pawn.GameStateId = gs.Id.Value;
+                Pawn pawn;
+                if (shipToCreate.ShipId == null)
+                {
+                    var spec = GameRules.GetShipByCode(shipToCreate.Code);
+                    pawn = Pawn.FromSpecification(spec);
+                    pawn.GameStateId = gs.Id.Value;
+                    gs.Pawns.Add(pawn);
+                }
+                else
+                {
+                    pawn = gs.Pawns.First(x => x.Id == shipToCreate.ShipId.Value);
+                }
+                
                 pawn.Name = shipToCreate.Name;
-                gs.Pawns.Add(pawn);
+                
             }
 
         
             _gsRepo.Save(gs);
 
-            return View(gs);
+            return RedirectToAction("Index", "StrategicView", new {id});
         }
 
     }

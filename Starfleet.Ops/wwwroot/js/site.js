@@ -39,6 +39,17 @@ $(document).ready(function () {
             if (!runStrategicView)
                 return;
 
+            $("[data-rename-for]").each(function () {
+                $(this).click(function() {
+
+                    var id = $(this).data("rename-for");
+                    $("[data-rename='" + id + "']").slideDown();
+
+                });
+
+            });
+
+
             var refreshFleetSelections = function() {
 
 
