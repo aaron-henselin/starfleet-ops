@@ -82,6 +82,8 @@ namespace Starfleet.Ops.Controllers
                 existingGameState = _gsRepo.GetById(id.Value).Result;
                 foreach (var p in existingGameState.Pawns)
                     vm.SelectedShips.Add(new ShipSelection(p));
+
+                vm.GameName = existingGameState.Name;
             }
 
             RemoveEmptyEntriesAndEnsureLastOptionEmpty(vm);
@@ -107,8 +109,12 @@ namespace Starfleet.Ops.Controllers
             var allInts = new List<int>();
             foreach (var code in allCodes)
             {
+                var cleanedCode = code.TrimStart('0').Split(' ',StringSplitOptions.RemoveEmptyEntries).FirstOrDefault();
+                if (cleanedCode == null)
+                    cleanedCode = string.Empty;
+
                 int num;
-                var success = Int32.TryParse(code.TrimStart('0'), out num);
+                var success = Int32.TryParse(cleanedCode, out num);
                 if (success)
                     allInts.Add(num);
             }
@@ -157,6 +163,8 @@ namespace Starfleet.Ops.Controllers
                 gs = _gsRepo.GetById(id.Value).Result;
             else
                 gs = new GameState{Id = Guid.NewGuid()};
+
+            gs.Name = vm.GameName;
 
             foreach (var shipToCreate in shipsToCreate)
             {

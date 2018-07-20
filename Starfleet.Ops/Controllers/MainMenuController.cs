@@ -12,7 +12,7 @@ namespace Starfleet.Ops.Controllers
 {
     public class MainMenuViewModel
     {
-        public IEnumerable<GameState> OpenGames { get; set; }
+        public List<GameState> OpenGames { get; set; }
     }
 
     public class ReconfigureViewModel
@@ -41,7 +41,7 @@ namespace Starfleet.Ops.Controllers
                 return RedirectToAction("Reconfigure");
             
             var openGames = _gsRepo.GetAll().Result;
-            var mm = new MainMenuViewModel {OpenGames = openGames};
+            var mm = new MainMenuViewModel {OpenGames = openGames.ToList()};
 
             return View(mm);
         }

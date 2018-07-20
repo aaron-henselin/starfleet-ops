@@ -27,10 +27,11 @@
             <div class="col-md-6">
                 @if (Model.SelectedShips[i].ShipId == null)
                 {
-                    @Html.DropDownListFor(x => Model.SelectedShips[i].Code, Model.AllShips, null, new {@class = "form-control"})
+                    @Html.DropDownListFor(x => Model.SelectedShips[i].Code, Model.AllShips, null, new { @class = "form-control" })
                 }
                 else
                 {
+                    @Html.HiddenFor(x => Model.SelectedShips[i].Code)
                     @Model.AllShips.Single(x => x.Value == Model.SelectedShips[i].Code).Text
                 }
             </div>
