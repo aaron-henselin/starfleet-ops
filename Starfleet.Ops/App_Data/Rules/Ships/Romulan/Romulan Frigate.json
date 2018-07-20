@@ -1,13 +1,14 @@
 {
-"Code": "RomulanFrigate",
+  "Code": "RomulanFrigate",
   "Faction": "Romulan",
-  "Name": "RF1",
+  "Name": "Frigate",
+  "Registry": "RIS-",
   "Components": {
     "Torp": "2",
     "Phaser": "5",
     "F Hull": "2",
-	"C Hull": "0",
-	"R Hull": "3",
+    "C Hull": "0",
+    "R Hull": "3",
     "Bridge": "2",
     "AWR": "2",
     "Shuttle": "2",

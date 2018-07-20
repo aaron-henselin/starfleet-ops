@@ -1,13 +1,14 @@
 {
-"Code": "FederationFrigate",
+  "Code": "FederationFrigate",
   "Faction": "Federation",
-  "Name": "FedF1",
+  "Name": "Frigate",
+  "Registry": "NCC-",
   "Components": {
     "Torp": "3",
     "Phaser": "6",
     "F Hull": "0",
-	"C Hull": "6",
-	"R Hull": "0",
+    "C Hull": "6",
+    "R Hull": "0",
     "Bridge": "2",
     "AWR": "1",
     "Shuttle": "2",

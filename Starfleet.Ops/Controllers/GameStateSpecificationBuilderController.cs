@@ -96,12 +96,53 @@ namespace Starfleet.Ops.Controllers
                 vm.SelectedShips.Add(new ShipSelection());
         }
 
+        private int GetNextRegistryNumber(IEnumerable<ShipSelection> shipSelections, string registry)
+        {
+            var allCodes =
+            shipSelections
+                .Where(x => !string.IsNullOrEmpty(x.Name))
+                .Where(x => x.Name.StartsWith(registry))
+                .Select(x => x.Name.Substring(registry.Length));
+
+            var allInts = new List<int>();
+            foreach (var code in allCodes)
+            {
+                int num;
+                var success = Int32.TryParse(code.TrimStart('0'), out num);
+                if (success)
+                    allInts.Add(num);
+            }
+
+            if (!allInts.Any())
+                return 1;
+
+            return allInts.Max() + 1;
+        }
+
         [HttpPost]
         public IActionResult Index(Guid? id,GameStateSpecificationViewModel vm)
         {
+            ModelState.Clear();
+
             vm.Id = id;
             vm.AllShips = CreateShipOptions().ToList();
             RemoveEmptyEntriesAndEnsureLastOptionEmpty(vm);
+
+            
+
+            foreach (var ship in vm.SelectedShips)
+            {
+                var isShipSelected = !string.IsNullOrWhiteSpace(ship.Code);
+                if (!isShipSelected)
+                    continue;
+
+                var spec = GameRules.GetShipByCode(ship.Code);
+                if (string.IsNullOrWhiteSpace(ship.Name))
+                    ship.Name = spec.Registry
+                        + GetNextRegistryNumber(vm.SelectedShips, spec.Registry).ToString().PadLeft(3,'0')
+                        +" "+spec.Name;
+
+            }
 
             return View(vm);
         }

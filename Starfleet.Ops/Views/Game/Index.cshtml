@@ -77,7 +77,7 @@
     <ul class="panelbar">
         @foreach (var pawn in Model.GameState.Pawns)
         {
-            if (pawn.FleetId != fleet.Id)
+            if (pawn.FleetId != fleet.Id || pawn.Destroyed)
             {
                 continue;
             }

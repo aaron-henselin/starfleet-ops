@@ -1,13 +1,14 @@
 {
-"Code": "RHC2RomulanHeavyCruiser",
+  "Code": "RHC1RomulanHeavyCruiser",
   "Faction": "Romulan",
-  "Name": "RHC2",
+  "Name": "Heavy Cruiser",
+  "Registry": "RIS-",
   "Components": {
     "Torp": "4",
     "Phaser": "11",
     "F Hull": "4",
-	"C Hull": "0",
-	"R Hull": "10",
+    "C Hull": "0",
+    "R Hull": "10",
     "Bridge": "2",
     "AWR": "2",
     "Shuttle": "4",

@@ -1,7 +1,8 @@
 ﻿{
-  "Code": "FED-Frigate",
-  "Faction": "Federation",
-  "Name": "Federation Frigate",
+  "Code": "d7battlecruiser",
+  "Faction": "klingon",
+  "Name": "Battlecruiser",
+  "Registry": "IKS-",
   "Components": {
     "Torp": "3",
     "Phaser": "6",
@@ -28,3 +29,26 @@
   }
 }
 
+
+//Torps-3
+//Phaser=6
+//Hull=6
+//Bridge=2
+//AWR=1
+//Shuttle=2
+//Labs=2
+//Drone=1
+//Trans=2
+//Tractor=2
+//Probe=1
+//Battery=2
+//EMG Bridge=1
+//AUX control=1
+//Impulse=3
+//L warp=6
+//R warp=6
+//C warp=6
+//Sensor=5
+//Scanner=5
+//Damage Control=4
+//EX damage=4

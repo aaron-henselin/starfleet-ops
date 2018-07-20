@@ -1,7 +1,8 @@
 {
-"Code": "BC7FederationBattleCrusier",
+"Code": "BC1FederationBattleCruiser",
   "Faction": "Federation",
-  "Name": "FedBC7",
+  "Name": "Battle Cruiser",
+  "Registry": "NCC-",
   "Components": {
     "Torp": "6",
     "Phaser": "12",

@@ -1,13 +1,14 @@
 {
-"Code": "RomulanDestroyer",
+  "Code": "RomulanDestroyer",
   "Faction": "Romulan",
-  "Name": "RD1",
+  "Name": "Destroyer",
+  "Registry": "RIS-",
   "Components": {
     "Torp": "3",
     "Phaser": "8",
     "F Hull": "2",
-	"C Hull": "0",
-	"R Hull": "4",
+    "C Hull": "0",
+    "R Hull": "4",
     "Bridge": "2",
     "AWR": "6",
     "Shuttle": "4",

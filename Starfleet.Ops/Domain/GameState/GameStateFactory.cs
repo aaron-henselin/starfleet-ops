@@ -77,5 +77,6 @@ namespace Starfleet.Ops.Domain.GameState
         [ComplexData]
         public List<string> BattleLog { get; set; } = new List<string>();
         public string Name { get; set; }
+        public bool Destroyed { get; set; }
     }
 }

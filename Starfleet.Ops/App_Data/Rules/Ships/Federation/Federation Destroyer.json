@@ -1,13 +1,14 @@
 {
-"Code": "D2FederationDestroyer",
+  "Code": "D1FederationDestroyer",
   "Faction": "Federation",
-  "Name": "FedD2",
+  "Name": "Destroyer",
+  "Registry": "NCC-",
   "Components": {
     "Torp": "4",
     "Phaser": "9",
     "F Hull": "0",
-	"C Hull": "10",
-	"R Hull": "0",
+    "C Hull": "10",
+    "R Hull": "0",
     "Bridge": "2",
     "AWR": "1",
     "Shuttle": "2",

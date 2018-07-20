@@ -1,12 +1,14 @@
-{"Code": "GBC2GornBattleCruiser",
+{
+  "Code": "GBC1GornBattleCruiser ",
   "Faction": "Gorn",
-  "Name": "GBC 2 Battle Cruiser",
+  "Name": "Battle Cruiser",
+  "Registry": "GCS-",
   "Components": {
     "Torp": "5",
     "Phaser": "14",
     "F Hull": "4",
-	"C Hull": "8",
-	"R Hull": "4",
+    "C Hull": "8",
+    "R Hull": "4",
     "Bridge": "2",
     "AWR": "5",
     "Shuttle": "6",

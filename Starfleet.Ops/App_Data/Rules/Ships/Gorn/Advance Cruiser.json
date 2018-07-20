@@ -1,7 +1,8 @@
 {
   "Code": "Gac1GornADVCruiser",
   "Faction": "Gorn",
-  "Name": "GAC 1 Advance Cruiser",
+  "Name": "Advance Cruiser",
+  "Registry": "GCS-",
   "Components": {
     "Torp": "14",
     "Phaser": "13",

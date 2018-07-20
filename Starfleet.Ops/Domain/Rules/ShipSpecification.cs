@@ -9,6 +9,7 @@ namespace Starfleet.Ops.Utility
         public string Code { get; set; }
         public string Faction { get; set; }
         public string Name { get; set; }
+        public string Registry { get; set; }
         public Dictionary<string,int> Components { get; set; } = new Dictionary<string, int>();
     }
 }

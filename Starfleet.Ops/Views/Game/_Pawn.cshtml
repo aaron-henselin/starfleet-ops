@@ -3,6 +3,13 @@
 @using Starfleet.Ops.Utility
 @model Starfleet.Ops.Domain.GameState.Pawn
 
+@if (Model.Destroyed)
+{
+    <div>
+        <pre>=== DESTROYED ===</pre>
+    </div>
+    return;
+}
 
 
 @using (Html.BeginForm("Action", "Game",new{ id=Model.GameStateId}))

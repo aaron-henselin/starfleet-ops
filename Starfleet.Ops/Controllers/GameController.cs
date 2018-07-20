@@ -146,6 +146,10 @@ namespace Starfleet.Ops.Controllers
 
             pawnToAffect.BattleLog.InsertRange(0,localLog);
 
+            var excessDamageRemaining = pawnToAffect.ComponentsRemaining["Excess Damage"];
+            pawnToAffect.Destroyed = excessDamageRemaining <= 0;
+               
+
             _gsRepo.Save(gs);
 
             vm.GameState = gs;
